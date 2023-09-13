@@ -24,7 +24,17 @@
     <div>
       <div class="tickerStart">
         <label for="ticker">Ticker</label>
-        <input type="text" id="ticker" onchange="changeTitle()" />
+        <input
+          type="text"
+          id="ticker"
+          oninput="tickerChanged()"
+          onup
+          maxlength="5"
+          minlength="1"
+        />
+        <label for="price">Price</label>
+        <input type="text" id="price" disabled />
+
         <label for="total_amount">Amount Invested ($):</label>
         <input type="text" id="total_amount" disabled />
       </div>
@@ -67,7 +77,7 @@
     <hr />
 
     <script>
-      function changeTitle() {
+      function tickerChanged() {
         console.log("Here");
         elem = document.getElementById("ticker");
         console.log(elem);
