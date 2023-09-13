@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profit & Loss Calculator</title>
+    <style>
+      .tables-container {
+        display: flex;
+        justify-content: space-between;
+      }
+      #incrementTable {
+        background-color: #e0ffe0; /* Light green */
+      }
+      #decrementTable {
+        background-color: #ffe0e0; /* Light red */
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <label for="amount">Avg Entry Price ($):</label>
+      <input type="text" id="amount" />
+      <label for="quantity">Quantity:</label>
+      <input type="text" id="quantity" />
+      <button onclick="generateTables()">Calculate</button>
+    </div>
+
+    <hr />
+    <div>
+      <label for="total_amount">Amount Invested ($):</label>
+      <input type="text" id="total_amount" disabled />
+    </div>
+
+    <div class="tables-container">
+      <div>
+        <h3>Profit Table:</h3>
+        <table border="1" id="incrementTable">
+          <thead>
+            <tr>
+              <th>Percentage</th>
+              <th>Exit Price</th>
+              <th>Profit ($)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div>
+        <h3>Loss Table:</h3>
+        <table border="1" id="decrementTable">
+          <thead>
+            <tr>
+              <th>Percentage</th>
+              <th>Exit Price</th>
+              <th>Loss ($)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      function formatValue(value) {
+        return Math.abs(value) >= 1
+          ? "$" + value.toFixed(2)
+          : "$" + value.toFixed(4);
+      }
+      function generateTables() {
+        const amount = parseFloat(
+          document.getElementById("amount").value.replace("$", "")
+        );
+        const quantity = parseFloat(document.getElementById("quantity").value);
+
+        const total_amount = quantity * amount;
+        document.getElementById("total_amount").value = total_amount;
+
+        const increments = [1, 3, 4, 5, 9, 10, 15, 20, 25, 30];
+        const decrements = [-1, -4, -5, -7.5, -9, -10, -12, -15];
+
+        const incrementTableBody = document.querySelector(
+          "#incrementTable tbody"
+        );
+        const decrementTableBody = document.querySelector(
+          "#decrementTable tbody"
+        );
+
+        // Clear previous data
+        incrementTableBody.innerHTML = "";
+        decrementTableBody.innerHTML = "";
+
+        for (let percent of increments) {
+          let newRow = incrementTableBody.insertRow();
+          let cell1 = newRow.insertCell(0);
+          let cell2 = newRow.insertCell(1);
+          let cell3 = newRow.insertCell(2);
+
+          let exitPrice = amount + (amount * percent) / 100;
+          let profit = (exitPrice - amount) * quantity;
+
+          cell1.textContent = percent + "%";
+          cell2.textContent = formatValue(exitPrice);
+          cell3.textContent = formatValue(profit);
+        }
+
+        for (let percent of decrements) {
+          let newRow = decrementTableBody.insertRow();
+          let cell1 = newRow.insertCell(0);
+          let cell2 = newRow.insertCell(1);
+          let cell3 = newRow.insertCell(2);
+
+          let exitPrice = amount + (amount * percent) / 100;
+          let loss = (exitPrice - amount) * quantity;
+
+          cell1.textContent = percent + "%";
+          cell2.textContent = formatValue(exitPrice);
+          cell3.textContent = formatValue(loss);
+        }
+      }
+    </script>
+  </body>
+</html>
