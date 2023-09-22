@@ -18,9 +18,12 @@ function generateTables() {
   const total_amount = formatValue(quantity * amount);
   document.getElementById("total_amount").value = total_amount;
 
-  const increments = [0.25, 0.5, 0.75, 1, 2.5, 3, 4, 5, 9, 10, 15, 20, 25, 30];
+  const increments = [
+    0.25, 0.5, 0.75, 1, 2, 2.5, 3, 4, 5, 9, 10, 15, 20, 25, 30,
+  ];
   const decrements = [
-    -0.25, -0.5, -0.75, -1, -2.5, -3, -4, -5, -7.5, -9, -10, -12, -15, -20,
+    -0.25, -0.5, -0.75, -1, -2, -2.5, -3, -4, -5, -7.5, -9, -10, -12.5, -15,
+    -20,
   ];
 
   const incrementTableBody = document.querySelector("#incrementTable tbody");
