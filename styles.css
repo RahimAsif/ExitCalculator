@@ -1,0 +1,11 @@
+.tables-container {
+    display: flex;
+    justify-content: start;
+    margin-top: 20px;
+  }
+  #incrementTable {
+    background-color: #e0ffe0; /* Light green */
+  }
+  #decrementTable {
+    background-color: #ffe0e0; /* Light red */
+  }
