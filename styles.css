@@ -4,6 +4,10 @@
     margin-top: 20px;
   }
 
+  table {
+    margin-right: 10px;
+  }
+
   td {
     text-align: center;
     padding-left: 10px;
